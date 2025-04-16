@@ -1,5 +1,5 @@
 import os
-from fastapi import APIRouter, Depends, HTTPException, UploadFile, File
+from fastapi import APIRouter, Depends, HTTPException, UploadFile, File as FileUpload
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 from typing import List
@@ -15,12 +15,12 @@ router = APIRouter(prefix="/files", tags=["files"])
 embedding_service = EmbeddingService()
 
 # Storage dizini yolu
-STORAGE_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "storage")
+STORAGE_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), "storage")
 
 @router.post("/upload", response_model=FileUploadResponse)
 async def upload_files(
     user_id: int,
-    files: List[UploadFile] = File(...),
+    files: List[UploadFile] = FileUpload(...),
     db: AsyncSession = Depends(get_db)
 ):
     uploaded_files = []

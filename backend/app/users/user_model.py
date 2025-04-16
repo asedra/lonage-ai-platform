@@ -20,4 +20,5 @@ class User(Base):
     # İlişki tanımları
     credit = relationship("Credit", back_populates="user", uselist=False)
     assistants = relationship("Assistant", back_populates="user")
-    files = relationship("File", back_populates="user") 
+    files = relationship("File", back_populates="user")
+    ai_models = relationship("AIModel", back_populates="user") 

@@ -1,9 +1,24 @@
 from pydantic import BaseModel, Field
+from typing import Optional, List, Dict, Any, Literal
 
 class PromptRequest(BaseModel):
-    user_id: int = Field(..., description="Kullanıcı ID")
-    assistant_id: int = Field(..., description="Asistan ID")
-    message: str = Field(..., min_length=1, description="Kullanıcı mesajı")
+    assistant_id: int
+    user_id: int
+    message: str
 
 class PromptResponse(BaseModel):
-    response: str = Field(..., description="AI asistanın cevabı") 
+    response: str
+
+class ChatMessage(BaseModel):
+    role: str
+    content: str
+
+class ChatRequest(BaseModel):
+    model_type: Literal["openai", "ollama"]
+    model: str
+    messages: List[Dict[str, str]]
+    api_key: Optional[str] = None
+    ollama_url: Optional[str] = None
+
+class ChatResponse(BaseModel):
+    content: str 

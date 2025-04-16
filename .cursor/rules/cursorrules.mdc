@@ -3,7 +3,6 @@ description:
 globs: 
 alwaysApply: true
 ---
-
 # 🔧 Project Overview
 
 This project is a **multi-tenant AI Assistant Platform** that supports both **SaaS** and **on-premise** deployments. The system enables users to create and interact with AI assistants fine-tuned on their internal data.
@@ -133,7 +132,7 @@ project-root/
 
 ---
 
-## 🧪 Testing Strategy
+## 🥚 Testing Strategy
 
 ### Frontend
 - Use Jest + React Testing Library
