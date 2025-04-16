@@ -1,0 +1,181 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+
+# 🔧 Project Overview
+
+This project is a **multi-tenant AI Assistant Platform** that supports both **SaaS** and **on-premise** deployments. The system enables users to create and interact with AI assistants fine-tuned on their internal data.
+
+---
+
+## 📌 Project Objectives
+
+- Users can create assistants powered by their own documents (PDF, CSV, etc.)
+- Supports RAG and fine-tuning over enterprise documents
+- Offers token/credit-based usage tracking and purchasing
+- Works with LLMs like OpenAI, Ollama, or any local model
+- Admin panel with user, subscription, and billing management
+
+---
+
+## 🧱 Technology Stack
+
+### Frontend
+- **Next.js 15** (App Router)
+- **TypeScript**
+- **TailwindCSS + ShadCN UI + Radix UI**
+- **Zustand** for global state
+- **React Hook Form + Zod** for form validation
+
+### Backend
+- **FastAPI** (Python async)
+- **PostgreSQL**
+- **Redis + Celery** (for background jobs)
+- **MinIO / S3** (for document storage)
+- **Qdrant / Weaviate** (Vector DB)
+- **OpenAI / Ollama API** (LLM gateway)
+
+---
+
+## 🗂 Recommended Project Structure
+
+project-root/
+├── frontend/
+│   └── src/
+│       ├── app/
+│       │   ├── login/page.tsx
+│       │   ├── dashboard/page.tsx
+│       │   ├── dashboard/assistants/page.tsx
+│       │   ├── settings/page.tsx
+│       │   ├── settings/users/page.tsx
+│       │   └── settings/billing/page.tsx
+│       ├── components/ui/
+│       │   ├── assistantModal.tsx
+│       │   ├── assistantCard.tsx
+│       │   ├── ProfileForm.tsx
+│       │   ├── LanguageSelector.tsx
+│       │   ├── ThemeSelector.tsx
+│       ├── store/
+│       ├── lib/
+│       └── types/
+├── backend/
+│   ├── app/
+│   │   ├── api/
+│   │   ├── models/
+│   │   ├── schemas/
+│   │   └── core/
+│   └── main.py
+├── docker/
+├── .env
+└── .cursor/rules/cursorrules.mdc
+
+---
+
+## 🧑‍💻 Code Conventions
+
+### File Naming
+- Use kebab-case for file names
+- Page routes follow Next.js `app/` structure
+
+### TypeScript
+- Enable `strict: true` in tsconfig
+- All components must be typed
+- Use interfaces for props and API responses
+
+### Styling
+- Use TailwindCSS utility-first approach
+- Use `cn()` helper for `className` management
+- No inline styles unless strictly necessary
+
+### ShadCN UI Rules
+- All UI elements must use ShadCN UI components
+- Dialogs, Inputs, Selects, etc. must be accessible and Radix-compliant
+- Place all UI components inside `components/ui/`
+
+---
+
+## 🔁 Development Workflow
+
+### Branching
+- `main` = production-ready
+- `dev` = development
+- Feature branches: `feature/feature-name`
+
+### Commit Format (Conventional Commits)
+- `feat: add login page`
+- `fix: resolve dashboard redirect`
+- `refactor: simplify form validation`
+
+### PR Workflow
+- All features via Pull Request
+- CI checks must pass (Lint + Type Check + Build)
+- PR must be reviewed before merge
+
+---
+
+## 🔐 Security & Auth
+
+- JWT-based authentication
+- Refresh tokens stored in HttpOnly cookies
+- Rate limit sensitive endpoints
+- Passwords must be hashed with `bcrypt`
+
+---
+
+## 🚀 Performance & Optimization
+
+- Use dynamic imports for large UI modules
+- Static rendering (Next.js `○` pages) preferred for SEO
+- Lazy load non-critical components
+- Use Redis to cache vector similarity responses if needed
+
+---
+
+## 🧪 Testing Strategy
+
+### Frontend
+- Use Jest + React Testing Library
+- Coverage must include:
+  - Modal render + submit
+  - Form validation feedback
+  - Store updates via Zustand
+
+### Backend
+- Pytest + HTTPX test client
+- Each route must be covered:
+  - Login success/failure
+  - Assistant CRUD
+  - Vector search
+
+---
+
+## 📦 Deployment & DevOps
+
+- Use Docker for dev containers
+- Frontend served via Vercel or static export
+- Backend deployed via Gunicorn + Uvicorn
+- CI/CD via GitHub Actions:
+  - Install deps → Lint → Type Check → Build → Deploy
+
+---
+
+## 🧠 Special Notes for Cursor AI
+
+- You may `@files` to define or edit files
+- Always use `cn()` helper for class names
+- If a component is not found, create it in `components/ui/`
+- When unsure, ask `@ali` for clarification
+
+---
+
+## ✅ Your First Tasks
+
+@cursor
+
+1. Create `login/page.tsx` with email/password form using ShadCN UI
+2. Create `api/login.py` in backend with FastAPI, returning fake JWT token
+3. Build `assistantModal.tsx` for creating a new assistant
+4. Create Zustand store: `useAuthStore.ts` with `login(user)` and `logout()`
+5. Add `ProfileForm.tsx` with mock user update form
